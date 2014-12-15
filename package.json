@@ -1,0 +1,39 @@
+{
+  "name": "btcproof",
+  "version": "1.0.0",
+  "description": "Proof for a tx by computing a path to the merkle root",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eslint": "^0.10.2"
+  },
+  "devDependencies": {
+    "mocha": "^2.0.1"
+  },
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ethers/btcproof.git"
+  },
+  "keywords": [
+    "bitcoin",
+    "tx",
+    "transaction",
+    "proof",
+    "merkle",
+    "root",
+    "light",
+    "client",
+    "ethereum"
+  ],
+  "author": "ethers",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ethers/btcproof/issues"
+  },
+  "homepage": "https://github.com/ethers/btcproof"
+}
