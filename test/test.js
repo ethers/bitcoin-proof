@@ -15,18 +15,28 @@ describe('getProof', function() {
     assert.strictEqual(merkle, expMerkle);
   });
 
+  it('should return merkle root of block 100k-1 (odd num of tx)', function() {
+    const txs = [
+      '110ed92f558a1e3a94976ddea5c32f030670b5c58c3cc4d857ac14d7a1547a90'
+    ],
+      expMerkle = '110ed92f558a1e3a94976ddea5c32f030670b5c58c3cc4d857ac14d7a1547a90';
+
+    var merkle = btcproof.getProof(txs);
+    assert.strictEqual(merkle, expMerkle);
+  });
+
   it('should return merkle root of block 106022', function() {
     const txs = [
-      "3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c",
-      "be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7",
-      "d173f2a12b6ff63a77d9fe7bbb590bdb02b826d07739f90ebb016dc9297332be",
-      "59d1e83e5268bbb491234ff23cbbf2a7c0aa87df553484afee9e82385fc7052f",
-      "f1ce77a69d06efb79e3b08a0ff441fa3b1deaf71b358df55244d56dd797ac60c",
-      "84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0"
+      '3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c',
+      'be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7',
+      'd173f2a12b6ff63a77d9fe7bbb590bdb02b826d07739f90ebb016dc9297332be',
+      '59d1e83e5268bbb491234ff23cbbf2a7c0aa87df553484afee9e82385fc7052f',
+      'f1ce77a69d06efb79e3b08a0ff441fa3b1deaf71b358df55244d56dd797ac60c',
+      '84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0'
     ],
       expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
     var merkle = btcproof.getProof(txs);
     assert.strictEqual(merkle, expMerkle);
   });
-})
+});
