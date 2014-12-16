@@ -111,14 +111,46 @@ describe('getMerkleRoot', function() {
 });
 
 describe('getTxMerkle', function() {
-  it('for block 100k tx[0]', function() {
-    const txs = BLOCK_100K.txs,
-      hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      proof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }],
-      expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
+  describe('for block 100k', function() {
+    it('tx[0]', function() {
+      const txs = BLOCK_100K.txs,
+        hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
+        proof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }],
+        expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
 
-    var merkle = btcProof.getTxMerkle(txs[0], proof);
-    assert.strictEqual(merkle, expMerkle);
+      var merkle = btcProof.getTxMerkle(txs[0], proof);
+      assert.strictEqual(merkle, expMerkle);
+    });
+
+    it('tx[1]', function() {
+      const txs = BLOCK_100K.txs,
+        hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
+        proof = [{ hash: txs[0], path: 1 }, { hash: hRight, path: 2 }],
+        expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
+
+      var merkle = btcProof.getTxMerkle(txs[1], proof);
+      assert.strictEqual(merkle, expMerkle);
+    });
+
+    it('tx[2]', function() {
+      const txs = BLOCK_100K.txs,
+        hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
+        proof = [{ hash: txs[3], path: 2 }, { hash: hLeft, path: 1 }],
+        expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
+
+      var merkle = btcProof.getTxMerkle(txs[2], proof);
+      assert.strictEqual(merkle, expMerkle);
+    });
+
+    it('tx[3]', function() {
+      const txs = BLOCK_100K.txs,
+        hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
+        proof = [{ hash: txs[2], path: 1 }, { hash: hLeft, path: 1 }],
+        expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
+
+      var merkle = btcProof.getTxMerkle(txs[3], proof);
+      assert.strictEqual(merkle, expMerkle);
+    });
   });
 
   it('for block 106022 tx[0]', function() {
