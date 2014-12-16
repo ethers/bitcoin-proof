@@ -58,6 +58,15 @@ describe('getProof', function() {
     assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
   });
 
+  it('for block 100k tx[3]', function() {
+    const txs = BLOCK_100K.txs,
+      hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
+      expProof = [{ hash: txs[2], path: 1 }, { hash: hLeft, path: 1 }];
+
+    var proof = btcProof.getProof(txs, 3);
+    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+  });
+
   it('for block 106022 tx[0]', function() {
     const txs = BLOCK_106022.txs,
       expProof = [
