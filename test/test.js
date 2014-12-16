@@ -2,7 +2,7 @@ const btcProof = require('../index'),
   assert = require('assert');
 
 describe('getProof', function() {
-  it('for block 100k', function() {
+  it('for block 100k tx[0]', function() {
     const txs = [
       '8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87',
       'fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4',
@@ -14,21 +14,14 @@ describe('getProof', function() {
     // >>> j = 'e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d'.decode('hex')[::-1]
     // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
     // '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49'
-    var hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49';
-    var expProof = [{hash:txs[1], path:2}, {hash: hRight, path:2}];
+    const hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
+      expProof = [
+        { hash: txs[1], path: 2},
+        { hash: hRight, path: 2}
+      ];
 
     var proof = btcProof.getProof(txs, 0);
     assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
-  });
-
-  it('should return merkle root of block 100k-1 (odd num of tx)', function() {
-    const txs = [
-      '110ed92f558a1e3a94976ddea5c32f030670b5c58c3cc4d857ac14d7a1547a90'
-    ],
-      expMerkle = '110ed92f558a1e3a94976ddea5c32f030670b5c58c3cc4d857ac14d7a1547a90';
-
-    var merkle = btcProof.getProof(txs);
-    assert.strictEqual(merkle, expMerkle);
   });
 
   it('for block 106022 tx[0]', function() {
@@ -41,9 +34,9 @@ describe('getProof', function() {
       '84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0'
     ],
       expProof = [
-        {hash:txs[1], path:2},
-        {hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path:2},
-        {hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path:2}
+        { hash: txs[1], path: 2},
+        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2},
+        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2}
       ];
 
     var proof = btcProof.getProof(txs, 0);
@@ -100,7 +93,7 @@ describe('getTxMerkle', function() {
       'e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d'
     ],
       hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      proof = [{hash:txs[1], path:2}, {hash: hRight, path:2}],
+      proof = [{ hash: txs[1], path: 2}, { hash: hRight, path: 2}],
       expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
 
     var merkle = btcProof.getTxMerkle(txs[0], proof);
@@ -117,9 +110,9 @@ describe('getTxMerkle', function() {
       '84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0'
     ],
       proof = [
-        {hash:txs[1], path:2},
-        {hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path:2},
-        {hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path:2}
+        { hash: txs[1], path: 2},
+        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2},
+        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2}
       ],
       expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
