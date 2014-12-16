@@ -15,7 +15,7 @@ var bufReverse = exports.bufReverse = function(buf) {
   return new Buffer(Array.prototype.slice.call(buf).reverse());
 }
 
-exports.getProof = function(txs, index) {
+var getProof = exports.getProof = function(txs, index) {
   // if (txs.length == 0) {
   //   return [util.NULL_HASH.slice(0)];
   // }
@@ -79,8 +79,14 @@ console.log('pB: ', proof)
   return tree[tree.length - 1].toString('hex');
 };
 
+exports.getMerkleRoot = function(txs) {
+  return getProof(txs, null);
+}
+
 exports.getTxMerkle = function(tx, proofArr) {
-  var resultHash = new Buffer(tx, 'hex');
+  var resultHash = new Buffer(tx, 'hex'),
+    left,
+    right;
 
   proofArr.forEach(function(proof) {
     var proofHex = new Buffer(proof.hash, 'hex');
