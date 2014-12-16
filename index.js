@@ -76,22 +76,22 @@ console.log('pB: ', proof)
   return tree[tree.length - 1].toString('hex');
 };
 
-exports.getTxMerkle = function(tx, proof) {
-  var left = new Buffer(tx, 'hex')
-  var right = new Buffer(proof[0].hash, 'hex')
-  var dblSha = twoSha256(Buffer.concat([bufReverse(left), bufReverse(right)]));
-  dblSha = bufReverse(dblSha);
+exports.getTxMerkle = function(tx, proofs) {
+  var dblSha = new Buffer(tx, 'hex')
 
-  var proofHash = new Buffer(proof[1].hash, 'hex');
-  if (proof[1].path === 1) {
-    left = proofHash;
-    right = dblSha;
-  } else if (proof[1].path === 2) {
-    left = dblSha;
-    right = proofHash;
-  }
+  proofs.forEach(function(proof) {
+    var proofHash = new Buffer(proof.hash, 'hex');
+    if (proof.path === 1) {
+      left = proofHash;
+      right = dblSha;
+    } else if (proof.path === 2) {
+      left = dblSha;
+      right = proofHash;
+    }
 
-  dblSha = twoSha256(Buffer.concat([bufReverse(left), bufReverse(right)]));
-  dblSha = bufReverse(dblSha);
+    dblSha = twoSha256(Buffer.concat([bufReverse(left), bufReverse(right)]));
+    dblSha = bufReverse(dblSha);
+  })
+
   return dblSha.toString('hex');
 }
