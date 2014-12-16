@@ -58,10 +58,29 @@ describe('getProof', function() {
     var merkle = btcProof.getProof(txs);
     assert.strictEqual(merkle, expMerkle);
   });
+
+  it('for block 106022 tx[0]', function() {
+    const txs = [
+      '3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c',
+      'be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7',
+      'd173f2a12b6ff63a77d9fe7bbb590bdb02b826d07739f90ebb016dc9297332be',
+      '59d1e83e5268bbb491234ff23cbbf2a7c0aa87df553484afee9e82385fc7052f',
+      'f1ce77a69d06efb79e3b08a0ff441fa3b1deaf71b358df55244d56dd797ac60c',
+      '84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0'
+    ],
+      expProof = [
+        {hash:txs[1], path:2},
+        {hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path:2},
+        {hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path:2}
+      ];
+
+    var proof = btcProof.getProof(txs, 0);
+    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+  });
 });
 
 describe('getTxMerkle', function() {
-  it('should match for block 100k', function() {
+  it('for block 100k tx[0]', function() {
     const txs = [
       '8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87',
       'fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4',
@@ -71,6 +90,26 @@ describe('getTxMerkle', function() {
       hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
       proof = [{hash:txs[1], path:2}, {hash: hRight, path:2}],
       expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
+
+    var merkle = btcProof.getTxMerkle(txs[0], proof);
+    assert.strictEqual(merkle, expMerkle);
+  });
+
+  it('for block 106022 tx[0]', function() {
+    const txs = [
+      '3a459eab5f0cf8394a21e04d2ed3b2beeaa59795912e20b9c680e9db74dfb18c',
+      'be38f46f0eccba72416aed715851fd07b881ffb7928b7622847314588e06a6b7',
+      'd173f2a12b6ff63a77d9fe7bbb590bdb02b826d07739f90ebb016dc9297332be',
+      '59d1e83e5268bbb491234ff23cbbf2a7c0aa87df553484afee9e82385fc7052f',
+      'f1ce77a69d06efb79e3b08a0ff441fa3b1deaf71b358df55244d56dd797ac60c',
+      '84053cba91fe659fd3afa1bf2fd0e3746b99215b50cd74e44bda507d8edf52e0'
+    ],
+      proof = [
+        {hash:txs[1], path:2},
+        {hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path:2},
+        {hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path:2}
+      ],
+      expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
     var merkle = btcProof.getTxMerkle(txs[0], proof);
     assert.strictEqual(merkle, expMerkle);
