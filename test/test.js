@@ -29,10 +29,7 @@ describe('getProof', function() {
     // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
     // '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49'
     const hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      expProof = [
-        { hash: txs[1], path: 2},
-        { hash: hRight, path: 2}
-      ];
+      expProof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }];
 
     var proof = btcProof.getProof(txs, 0);
     assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -41,9 +38,9 @@ describe('getProof', function() {
   it('for block 106022 tx[0]', function() {
     const txs = BLOCK_106022.txs,
       expProof = [
-        { hash: txs[1], path: 2},
-        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2},
-        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2}
+        { hash: txs[1], path: 2 },
+        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2 },
+        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2 }
       ];
 
     var proof = btcProof.getProof(txs, 0);
@@ -83,7 +80,7 @@ describe('getTxMerkle', function() {
   it('for block 100k tx[0]', function() {
     const txs = BLOCK_100K.txs,
       hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      proof = [{ hash: txs[1], path: 2}, { hash: hRight, path: 2}],
+      proof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }],
       expMerkle = 'f3e94742aca4b5ef85488dc37c06c3282295ffec960994b2c0d5ac2a25a95766';
 
     var merkle = btcProof.getTxMerkle(txs[0], proof);
@@ -93,9 +90,9 @@ describe('getTxMerkle', function() {
   it('for block 106022 tx[0]', function() {
     const txs = BLOCK_106022.txs,
       proof = [
-        { hash: txs[1], path: 2},
-        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2},
-        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2}
+        { hash: txs[1], path: 2 },
+        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2 },
+        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2 }
       ],
       expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
