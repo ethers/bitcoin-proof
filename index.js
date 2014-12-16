@@ -24,9 +24,11 @@ exports.getProof = function(txs, index) {
 
   var j = 0;
 
-  var lookFor = txs[index];
-  var proof = [];
-  var foundPath = 0;
+  if (index >= 0) {
+    var lookFor = txs[index].toString('hex');
+    var proof = [];
+    var foundPath = 0;
+  }
 
   // Now step through each level ...
   for (var size = txs.length; size > 1; size = Math.floor((size + 1) / 2)) {
@@ -36,16 +38,18 @@ exports.getProof = function(txs, index) {
       var a = tree[j + i];
       var b = tree[j + i2];
 
-console.log('lf: ', lookFor, a, b)
       if (index >= 0) {
         var aHex = a.toString('hex'),
           bHex = b.toString('hex');
+console.log('lf: ', lookFor, aHex, bHex)
         if (lookFor === aHex) {
           foundPath = 2;
           proof.push({hash: bHex, path: 2});
+console.log('pA: ', proof)
         } else if (lookFor === bHex) {
           foundPath = 1;
           proof.push({hash: aHex, path: 1});
+console.log('pB: ', proof)
         }
       }
 
@@ -53,7 +57,9 @@ console.log('lf: ', lookFor, a, b)
       dblSha = bufReverse(dblSha);
 
       if (foundPath > 0) {
-        lookFor = dblSha; //foundPath === 1 ? aHex : bHex;
+        lookFor = dblSha.toString('hex'); //foundPath === 1 ? aHex : bHex;
+        console.log('@@@@@@@@ ', bufReverse(a), bufReverse(b), lookFor)
+
         foundPath = 0;
       }
 
@@ -63,6 +69,7 @@ console.log('lf: ', lookFor, a, b)
   }
 
   if (index >= 0) {
+    console.log('@@@@@@@@@proof: ', proof)
     return proof;
   }
 
