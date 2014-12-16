@@ -29,12 +29,9 @@ exports.getProof = function(txs) {
     for (var i = 0; i < size; i += 2) {
       var i2 = Math.min(i + 1, size - 1);
       var a = tree[j + i];
-      a = bufReverse(a);
-
       var b = tree[j + i2];
-      b = bufReverse(b);
 
-      var dblSha = twoSha256(Buffer.concat([a, b]));
+      var dblSha = twoSha256(Buffer.concat([bufReverse(a), bufReverse(b)]));
       dblSha = bufReverse(dblSha);
 
       tree.push(dblSha);
