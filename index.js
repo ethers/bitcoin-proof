@@ -78,7 +78,7 @@ console.log('pB: ', proof)
 
 exports.getTxMerkle = function(tx, proof) {
   var left = new Buffer(tx, 'hex')
-  var right = new Buffer(proof[0], 'hex')
+  var right = new Buffer(proof[0].hash, 'hex')
   var dblSha = twoSha256(Buffer.concat([bufReverse(left), bufReverse(right)]));
   dblSha = bufReverse(dblSha);
 
