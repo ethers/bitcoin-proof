@@ -1,5 +1,8 @@
 const crypto = require('crypto');
 
+const LEFT_HASH = 1,
+  RIGHT_HASH = 2;
+
 var sha256 = exports.sha256 = function(data) {
   return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
 };
@@ -43,12 +46,12 @@ exports.getProof = function(txs, index) {
           bHex = b.toString('hex');
 console.log('lf: ', lookFor, aHex, bHex)
         if (lookFor === aHex) {
-          foundPath = 2;
-          proof.push({hash: bHex, path: 2});
+          foundPath = RIGHT_HASH;
+          proof.push({hash: bHex, path: RIGHT_HASH});
 console.log('pA: ', proof)
         } else if (lookFor === bHex) {
-          foundPath = 1;
-          proof.push({hash: aHex, path: 1});
+          foundPath = LEFT_HASH;
+          proof.push({hash: aHex, path: LEFT_HASH});
 console.log('pB: ', proof)
         }
       }
@@ -81,10 +84,10 @@ exports.getTxMerkle = function(tx, proofArr) {
 
   proofArr.forEach(function(proof) {
     var proofHex = new Buffer(proof.hash, 'hex');
-    if (proof.path === 1) {
+    if (proof.path === LEFT_HASH) {
       left = proofHex;
       right = resultHash;
-    } else if (proof.path === 2) {
+    } else if (proof.path === RIGHT_HASH) {
       left = resultHash;
       right = proofHex;
     }
