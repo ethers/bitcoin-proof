@@ -23,8 +23,15 @@ describe('getProof', function() {
       'e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d'
     ];
 
-    var h1 = btcProof.twoSha256(btcProof.bufReverse(new Buffer(txs[0], 'hex')),
-      btcProof.bufReverse(new Buffer(txs[1], 'hex'))).toString('hex');
+    // var h1 = btcProof.twoSha256(btcProof.bufReverse(new Buffer(txs[0], 'hex')),
+    //   btcProof.bufReverse(new Buffer(txs[1], 'hex')));
+    // h1 = btcProof.bufReverse(h1).toString('hex');
+
+    // >>> i = '8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87'.decode('hex')[::-1]
+    // >>> j = 'fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4'.decode('hex')[::-1]
+    // >>> dbl_sha256(i+j)
+    // '15b88c5107195bf09eb9da89b83d95b3d070079a3c5c5d3d17d0dcd873fbdacc'
+    var h1 = '15b88c5107195bf09eb9da89b83d95b3d070079a3c5c5d3d17d0dcd873fbdacc';
 
     var expProof = [{hash:txs[1], path:2}, {hash: h1}];
 
