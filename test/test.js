@@ -21,50 +21,52 @@ const BLOCK_100K = {
   };
 
 describe('getProof', function() {
-  it('for block 100k tx[0]', function() {
-    const txs = BLOCK_100K.txs;
+  describe('for block 100k', function() {
+    it('tx[0]', function() {
+      const txs = BLOCK_100K.txs;
 
-    // >>> i = '6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4'.decode('hex')[::-1]
-    // >>> j = 'e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d'.decode('hex')[::-1]
-    // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
-    // '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49'
-    const hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      expProof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }];
+      // >>> i = '6359f0868171b1d194cbee1af2f16ea598ae8fad666d9b012c8ed2b79a236ec4'.decode('hex')[::-1]
+      // >>> j = 'e9a66845e05d5abc0ad04ec80f774a7e585c6e8db975962d069a522137b80c1d'.decode('hex')[::-1]
+      // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
+      // '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49'
+      const hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
+        expProof = [{ hash: txs[1], path: 2 }, { hash: hRight, path: 2 }];
 
-    var proof = btcProof.getProof(txs, 0);
-    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
-  });
+      var proof = btcProof.getProof(txs, 0);
+      assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+    });
 
-  it('for block 100k tx[1]', function() {
-    const txs = BLOCK_100K.txs,
-      hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
-      expProof = [{ hash: txs[0], path: 1 }, { hash: hRight, path: 2 }];
+    it('tx[1]', function() {
+      const txs = BLOCK_100K.txs,
+        hRight = '8e30899078ca1813be036a073bbf80b86cdddde1c96e9e9c99e9e3782df4ae49',
+        expProof = [{ hash: txs[0], path: 1 }, { hash: hRight, path: 2 }];
 
-    var proof = btcProof.getProof(txs, 1);
-    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
-  });
+      var proof = btcProof.getProof(txs, 1);
+      assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+    });
 
-  it('for block 100k tx[2]', function() {
-    const txs = BLOCK_100K.txs;
+    it('tx[2]', function() {
+      const txs = BLOCK_100K.txs;
 
-    // >>> i = '8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87'.decode('hex')[::-1]
-    // >>> j = 'fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4'.decode('hex')[::-1]
-    // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
-    // 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815'
-    const hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
-      expProof = [{ hash: txs[3], path: 2 }, { hash: hLeft, path: 1 }];
+      // >>> i = '8c14f0db3df150123e6f3dbbf30f8b955a8249b62ac1d1ff16284aefa3d06d87'.decode('hex')[::-1]
+      // >>> j = 'fff2525b8931402dd09222c50775608f75787bd2b87e56995a7bdd30f79702c4'.decode('hex')[::-1]
+      // >>> dbl_sha256(i+j).decode('hex')[::-1].encode('hex')
+      // 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815'
+      const hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
+        expProof = [{ hash: txs[3], path: 2 }, { hash: hLeft, path: 1 }];
 
-    var proof = btcProof.getProof(txs, 2);
-    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
-  });
+      var proof = btcProof.getProof(txs, 2);
+      assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+    });
 
-  it('for block 100k tx[3]', function() {
-    const txs = BLOCK_100K.txs,
-      hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
-      expProof = [{ hash: txs[2], path: 1 }, { hash: hLeft, path: 1 }];
+    it('tx[3]', function() {
+      const txs = BLOCK_100K.txs,
+        hLeft = 'ccdafb73d8dcd0173d5d5c3c9a0770d0b3953db889dab99ef05b1907518cb815',
+        expProof = [{ hash: txs[2], path: 1 }, { hash: hLeft, path: 1 }];
 
-    var proof = btcProof.getProof(txs, 3);
-    assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+      var proof = btcProof.getProof(txs, 3);
+      assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
+    });
   });
 
   it('for block 106022 tx[0]', function() {
