@@ -58,9 +58,6 @@ describe('getProof', function() {
           sibling: [txs[0], BLOCK_100K.hashRightPair]
         };
 
-      // const txs = BLOCK_100K.txs,
-      //   expProof = [{ hash: txs[0], path: 1 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
-
       var proof = btcProof.getProof(txs, 1);
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
     });
