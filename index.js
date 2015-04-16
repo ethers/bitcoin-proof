@@ -31,7 +31,7 @@ var getProof = exports.getProof = function(txs, index) {
       txIndex: index,
       sibling: []
     };
-    var foundPath = 0;
+    var foundPath = false;
   }
 
   // Now step through each level ...
@@ -48,9 +48,11 @@ var getProof = exports.getProof = function(txs, index) {
 // console.log('lf: ', lookFor, aHex, bHex)
         if (lookFor === aHex) {
           proof.sibling.push(bHex);
+          foundPath = true;
 // console.log('pA: ', proof)
         } else if (lookFor === bHex) {
           proof.sibling.push(aHex);
+          foundPath = true;
 // console.log('pB: ', proof)
         }
       }
@@ -58,11 +60,11 @@ var getProof = exports.getProof = function(txs, index) {
       var dblSha = twoSha256(Buffer.concat([bufReverse(a), bufReverse(b)]));
       dblSha = bufReverse(dblSha);
 
-      if (foundPath > 0) {
+      if (foundPath) {
         lookFor = dblSha.toString('hex'); //foundPath === 1 ? aHex : bHex;
         // console.log('@@@@@@@@ ', bufReverse(a), bufReverse(b), lookFor)
 
-        foundPath = 0;
+        foundPath = false;
       }
 
       tree.push(dblSha);

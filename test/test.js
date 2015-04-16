@@ -36,7 +36,7 @@ const BLOCK_100K = {
 
 describe('getProof', function() {
   describe('for block 100k', function() {
-    it('tx[0]', function() {
+    it.only('tx[0]', function() {
       const txs = BLOCK_100K.txs,
         txIndex = 0,
         expProof = {
@@ -45,7 +45,7 @@ describe('getProof', function() {
           sibling: [txs[1], BLOCK_100K.hashRightPair]
         };
 
-      var proof = btcProof.getProof(txs, 0);
+      var proof = btcProof.getProof(txs, txIndex);
       console.log(proof)
       console.log(expProof)
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -117,7 +117,7 @@ describe('getMerkleRoot', function() {
 
 describe('getTxMerkle', function() {
   describe('for block 100k', function() {
-    it.only('tx[0]', function() {
+    it('tx[0]', function() {
       const txs = BLOCK_100K.txs,
         txIndex = 0,
         proof = {
