@@ -38,9 +38,16 @@ describe('getProof', function() {
   describe('for block 100k', function() {
     it('tx[0]', function() {
       const txs = BLOCK_100K.txs,
-        expProof = [{ hash: txs[1], path: 2 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
+        txIndex = 0,
+        expProof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[1], BLOCK_100K.hashRightPair]
+        };
 
       var proof = btcProof.getProof(txs, 0);
+      console.log(proof)
+      console.log(expProof)
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
     });
 
@@ -110,9 +117,14 @@ describe('getMerkleRoot', function() {
 
 describe('getTxMerkle', function() {
   describe('for block 100k', function() {
-    it('tx[0]', function() {
+    it.only('tx[0]', function() {
       const txs = BLOCK_100K.txs,
-        proof = [{ hash: txs[1], path: 2 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
+        txIndex = 0,
+        proof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[1], BLOCK_100K.hashRightPair]
+        };
 
       var merkle = btcProof.getTxMerkle(txs[0], proof);
       assert.strictEqual(merkle, BLOCK_100K.merkleRoot);
