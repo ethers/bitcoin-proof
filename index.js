@@ -92,12 +92,12 @@ exports.getTxMerkle = function(tx, proofObj) {
 
   proofObj.sibling.forEach(function(sibling) {
     var proofHex = new Buffer(sibling, 'hex'),
-      siblingSide = txIndex % 2;
+      sideOfSibling = txIndex % 2;  // 0 means sibling is on the right; 1 means left
 
-    if (siblingSide === 1) {
+    if (sideOfSibling === 1) {
       left = proofHex;
       right = resultHash;
-    } else if (siblingSide === 0) {
+    } else if (sideOfSibling === 0) {
       left = resultHash;
       right = proofHex;
     }
@@ -105,7 +105,7 @@ exports.getTxMerkle = function(tx, proofObj) {
     resultHash = twoSha256(Buffer.concat([bufReverse(left), bufReverse(right)]));
     resultHash = bufReverse(resultHash);
 
-    txIndex /= 2;
+    txIndex = Math.floor(txIndex / 2);
   });
 
   return resultHash.toString('hex');

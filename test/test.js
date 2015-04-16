@@ -36,7 +36,7 @@ const BLOCK_100K = {
 
 describe('getProof', function() {
   describe('for block 100k', function() {
-    it.only('tx[0]', function() {
+    it('tx[0]', function() {
       const txs = BLOCK_100K.txs,
         txIndex = 0,
         expProof = {
@@ -46,14 +46,20 @@ describe('getProof', function() {
         };
 
       var proof = btcProof.getProof(txs, txIndex);
-      console.log(proof)
-      console.log(expProof)
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
     });
 
     it('tx[1]', function() {
       const txs = BLOCK_100K.txs,
-        expProof = [{ hash: txs[0], path: 1 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
+        txIndex = 1,
+        expProof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[0], BLOCK_100K.hashRightPair]
+        };
+
+      // const txs = BLOCK_100K.txs,
+      //   expProof = [{ hash: txs[0], path: 1 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
 
       var proof = btcProof.getProof(txs, 1);
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -61,7 +67,12 @@ describe('getProof', function() {
 
     it('tx[2]', function() {
       const txs = BLOCK_100K.txs,
-        expProof = [{ hash: txs[3], path: 2 }, { hash: BLOCK_100K.hashLeftPair, path: 1 }];
+        txIndex = 2,
+        expProof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[3], BLOCK_100K.hashLeftPair]
+        };
 
       var proof = btcProof.getProof(txs, 2);
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -69,7 +80,12 @@ describe('getProof', function() {
 
     it('tx[3]', function() {
       const txs = BLOCK_100K.txs,
-        expProof = [{ hash: txs[2], path: 1 }, { hash: BLOCK_100K.hashLeftPair, path: 1 }];
+        txIndex = 3,
+        expProof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[2], BLOCK_100K.hashLeftPair]
+        };
 
       var proof = btcProof.getProof(txs, 3);
       assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -78,11 +94,16 @@ describe('getProof', function() {
 
   it('for block 106022 tx[0]', function() {
     const txs = BLOCK_106022.txs,
-      expProof = [
-        { hash: txs[1], path: 2 },
-        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2 },
-        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2 }
-      ];
+      txIndex = 0,
+      expProof = {
+        txHash: txs[txIndex],
+        txIndex: txIndex,
+        sibling: [
+          txs[1],
+          'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8',
+          '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3'
+        ]
+      };
 
     var proof = btcProof.getProof(txs, 0);
     assert.strictEqual(JSON.stringify(proof), JSON.stringify(expProof));
@@ -132,7 +153,12 @@ describe('getTxMerkle', function() {
 
     it('tx[1]', function() {
       const txs = BLOCK_100K.txs,
-        proof = [{ hash: txs[0], path: 1 }, { hash: BLOCK_100K.hashRightPair, path: 2 }];
+        txIndex = 1,
+        proof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[0], BLOCK_100K.hashRightPair]
+        };
 
       var merkle = btcProof.getTxMerkle(txs[1], proof);
       assert.strictEqual(merkle, BLOCK_100K.merkleRoot);
@@ -140,7 +166,12 @@ describe('getTxMerkle', function() {
 
     it('tx[2]', function() {
       const txs = BLOCK_100K.txs,
-        proof = [{ hash: txs[3], path: 2 }, { hash: BLOCK_100K.hashLeftPair, path: 1 }];
+        txIndex = 2,
+        proof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[3], BLOCK_100K.hashLeftPair]
+        };
 
       var merkle = btcProof.getTxMerkle(txs[2], proof);
       assert.strictEqual(merkle, BLOCK_100K.merkleRoot);
@@ -148,7 +179,12 @@ describe('getTxMerkle', function() {
 
     it('tx[3]', function() {
       const txs = BLOCK_100K.txs,
-        proof = [{ hash: txs[2], path: 1 }, { hash: BLOCK_100K.hashLeftPair, path: 1 }];
+        txIndex = 3,
+        proof = {
+          txHash: txs[txIndex],
+          txIndex: txIndex,
+          sibling: [txs[2], BLOCK_100K.hashLeftPair]
+        };
 
       var merkle = btcProof.getTxMerkle(txs[3], proof);
       assert.strictEqual(merkle, BLOCK_100K.merkleRoot);
@@ -157,11 +193,16 @@ describe('getTxMerkle', function() {
 
   it('for block 106022 tx[0]', function() {
     const txs = BLOCK_106022.txs,
-      proof = [
-        { hash: txs[1], path: 2 },
-        { hash: 'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8', path: 2 },
-        { hash: '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3', path: 2 }
-      ],
+      txIndex = 0,
+      proof = {
+        txHash: txs[txIndex],
+        txIndex: txIndex,
+        sibling: [
+          txs[1],
+          'f6ae335dc2d2aecb6a255ebd03caaf6820e6c0534531051066810080e0d822c8',
+          '15eca0aa3e2cc2b9b4fbe0629f1dda87f329500fcdcd6ef546d163211266b3b3'
+        ]
+      },
       expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
     var merkle = btcProof.getTxMerkle(txs[0], proof);
