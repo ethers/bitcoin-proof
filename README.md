@@ -1,4 +1,4 @@
-btcproof
-========
+bitcoin-proof
+=============
 
-Proof for a tx by computing path to the merkle root
+Merkle proof for a Bitcoin transaction
