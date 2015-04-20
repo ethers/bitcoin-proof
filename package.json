@@ -1,6 +1,6 @@
 {
-  "name": "btcproof",
-  "version": "1.0.0",
+  "name": "btcProof",
+  "version": "0.0.1",
   "description": "Proof for a tx by computing a path to the merkle root",
   "main": "index.js",
   "directories": {
@@ -17,7 +17,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/ethers/btcproof.git"
+    "url": "https://github.com/ethers/btcProof.git"
   },
   "keywords": [
     "bitcoin",
@@ -33,7 +33,7 @@
   "author": "ethers",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/ethers/btcproof/issues"
+    "url": "https://github.com/ethers/btcProof/issues"
   },
-  "homepage": "https://github.com/ethers/btcproof"
+  "homepage": "https://github.com/ethers/btcProof"
 }
