@@ -205,4 +205,12 @@ describe('getTxMerkle', function() {
     var merkle = btcProof.getTxMerkle(txs[0], proof);
     assert.strictEqual(merkle, expMerkle);
   });
+
+  it('for testnet tx[9] block 350559', function() {
+    const proof = {'txHash': 'a51a71f8094f9b4e266fcccd55068e809277ec79bfa44b7bdb8f1355e9bb8460', 'txIndex': '9', 'sibling': ['4f5d49d7a06fd3ace3d5f2e571546934653211b139222cc8284ab863d1f6e29a', '0fb8ebfdb2bcdb24ac10faf5cd474f07eef52da052805b8de5619be4190c992f', '16dfbab76bbdc3e7306d185ce7853c20cc067c3a5614aed3684b5755cf036a10', '474de8433d89421ca53879d33f0e8c19f64c7b5683c47dd7b0cc1db52c4fb3bc', '5ccbd3dfc316ab4b32b7281ec29f085716ab0320746240905a97f331f0da8c3c']},
+      expMerkle = '5f14eb3b7ae064698e458cd75e3c40821688d4abe79cebded2f616495140ac56';
+
+    var merkle = btcProof.getTxMerkle(proof.txHash, proof);
+    assert.strictEqual(merkle, expMerkle);
+  });
 });
