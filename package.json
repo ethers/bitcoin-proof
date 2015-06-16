@@ -1,6 +1,6 @@
 {
   "name": "bitcoin-proof",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Merkle proof for a Bitcoin transaction",
   "main": "index.js",
   "directories": {

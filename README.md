@@ -30,7 +30,7 @@ var proofOfLastTx = btcProof.getProof(BLOCK_100K_TRANSACTIONS, 3);
 ```
 
 
-### API
+## API
 
 
 ##### getProof(transactions, transactionIndex)
@@ -72,6 +72,6 @@ Returns the Merkle root as a hex string.
 
 `npm test`
 
-### License
+## License
 
 [MIT](LICENSE)

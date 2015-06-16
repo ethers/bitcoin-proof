@@ -110,7 +110,7 @@ describe('getProof', function() {
 describe('getMerkleRoot', function() {
   it('should return merkle root of block 100k', function() {
     const txs = BLOCK_100K.txs;
-    var merkle = btcProof.getProof(txs);
+    var merkle = btcProof.getMerkleRoot(txs);
     assert.strictEqual(merkle, BLOCK_100K.merkleRoot);
   });
 
@@ -120,7 +120,7 @@ describe('getMerkleRoot', function() {
     ],
       expMerkle = '110ed92f558a1e3a94976ddea5c32f030670b5c58c3cc4d857ac14d7a1547a90';
 
-    var merkle = btcProof.getProof(txs);
+    var merkle = btcProof.getMerkleRoot(txs);
     assert.strictEqual(merkle, expMerkle);
   });
 
@@ -128,7 +128,7 @@ describe('getMerkleRoot', function() {
     const txs = BLOCK_106022.txs,
       expMerkle = '9cdf7722eb64015731ba9794e32bdefd9cf69b42456d31f5e59aedb68c57ed52';
 
-    var merkle = btcProof.getProof(txs);
+    var merkle = btcProof.getMerkleRoot(txs);
     assert.strictEqual(merkle, expMerkle);
   });
 });

@@ -81,7 +81,7 @@ var getProof = exports.getProof = function(txs, index) {
 };
 
 exports.getMerkleRoot = function(txs) {
-  return getProof(txs, null);
+  return getProof(txs, -1);
 };
 
 exports.getTxMerkle = function(tx, proofObj) {
