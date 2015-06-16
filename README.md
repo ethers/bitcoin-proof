@@ -29,6 +29,49 @@ var proofOfFirstTx = btcProof.getProof(BLOCK_100K_TRANSACTIONS, 0);
 var proofOfLastTx = btcProof.getProof(BLOCK_100K_TRANSACTIONS, 3);
 ```
 
+
+### API
+
+
+##### getProof(transactions, transactionIndex)
+
+Computes the Merkle proof of a given transaction.
+
+* `transactions` - array of transaction hashes (as hex string)
+* `transactionIndex` - index of which transaction to compute a Merkle proof for
+
+Returns an object with the following keys:
+* `txHash` - transaction hash that the Merkle proof is computed for
+* `txIndex` - index of `txHash` among `transactions`
+* `sibling` - sibling hashes of `txHash` which comprise the Merkle proof
+
+----
+
+##### getMerkleRoot(transactions)
+
+Computes the Merkle root of a set of transactions.
+
+* `transactions` - array of transaction hashes (as hex string)
+
+Returns the Merkle root as a hex string.
+
+----
+
+##### getTxMerkle(transactionHash, proof)
+
+Computes the Merkle root of a given transaction and proof.
+
+* `transactionHash` - hash of the transaction as a hex string
+* `proof` - an object of the form returned by `getProof`
+
+Returns the Merkle root as a hex string.
+
+----
+
 ## Tests
 
 `npm test`
+
+### License
+
+[MIT](LICENSE)
