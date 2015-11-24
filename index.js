@@ -1,24 +1,24 @@
 const crypto = require('crypto');
 
-var sha256 = exports.sha256 = function(data) {
+var sha256 = exports.sha256 = function (data) {
   return new Buffer(crypto.createHash('sha256').update(data).digest('binary'), 'binary');
 };
 
-var twoSha256 = exports.twoSha256 = function(data) {
+var twoSha256 = exports.twoSha256 = function (data) {
   return sha256(sha256(data));
 };
 
-var bufReverse = exports.bufReverse = function(buf) {
+var bufReverse = exports.bufReverse = function (buf) {
   return new Buffer(Array.prototype.slice.call(buf).reverse());
 };
 
-var getProof = exports.getProof = function(txs, index) {
+var getProof = exports.getProof = function (txs, index) {
   // if (txs.length == 0) {
   //   return [util.NULL_HASH.slice(0)];
   // }
 
   // adapted from BitcoinJ and bitcore
-  var tree = txs.map(function(txStr) {
+  var tree = txs.map(function (txStr) {
     return new Buffer(txStr, 'hex');
   });
 
@@ -43,8 +43,8 @@ var getProof = exports.getProof = function(txs, index) {
       var b = tree[j + i2];
 
       if (index >= 0) {
-        var aHex = a.toString('hex'),
-          bHex = b.toString('hex');
+        var aHex = a.toString('hex');
+        var bHex = b.toString('hex');
 // console.log('lf: ', lookFor, aHex, bHex)
         if (lookFor === aHex) {
           proof.sibling.push(bHex);
@@ -80,19 +80,19 @@ var getProof = exports.getProof = function(txs, index) {
   return tree[tree.length - 1].toString('hex');
 };
 
-exports.getMerkleRoot = function(txs) {
+exports.getMerkleRoot = function (txs) {
   return getProof(txs, -1);
 };
 
-exports.getTxMerkle = function(tx, proofObj) {
-  var resultHash = new Buffer(tx, 'hex'),
-    left,
-    right,
-    txIndex = proofObj.txIndex;
+exports.getTxMerkle = function (tx, proofObj) {
+  var resultHash = new Buffer(tx, 'hex');
+  var left;
+  var right;
+  var txIndex = proofObj.txIndex;
 
-  proofObj.sibling.forEach(function(sibling) {
-    var proofHex = new Buffer(sibling, 'hex'),
-      sideOfSibling = txIndex % 2;  // 0 means sibling is on the right; 1 means left
+  proofObj.sibling.forEach(function (sibling) {
+    var proofHex = new Buffer(sibling, 'hex');
+    var sideOfSibling = txIndex % 2;  // 0 means sibling is on the right; 1 means left
 
     if (sideOfSibling === 1) {
       left = proofHex;

@@ -7,13 +7,15 @@
     "test": "test"
   },
   "dependencies": {
-    "eslint": "^0.10.2"
   },
   "devDependencies": {
-    "mocha": "^2.0.1"
+    "mocha": "^2.0.1",
+    "semistandard": "^7.0.0"
   },
   "scripts": {
-    "test": "./script/eslint.sh && mocha"
+    "prepublish": "npm run lint && npm run test",
+    "test": "mocha test/index.js",
+    "lint": "semistandard"
   },
   "repository": {
     "type": "git",
@@ -35,5 +37,11 @@
   "bugs": {
     "url": "https://github.com/ethers/bitcoin-proof/issues"
   },
-  "homepage": "https://github.com/ethers/bitcoin-proof"
+  "homepage": "https://github.com/ethers/bitcoin-proof",
+  "semistandard": {
+    "globals": [
+      "describe",
+      "it"
+    ]
+  }
 }
