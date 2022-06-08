@@ -2,7 +2,8 @@
   "name": "bitcoin-proof",
   "version": "2.0.0",
   "description": "Merkle proof for a Bitcoin transaction",
-  "main": "index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "keywords": [
     "bitcoin",
     "tx",
@@ -15,37 +16,36 @@
     "ethereum"
   ],
   "homepage": "https://github.com/ethers/bitcoin-proof",
-  "bugs": {
-    "url": "https://github.com/ethers/bitcoin-proof/issues"
-  },
+  "bugs": "https://github.com/ethers/bitcoin-proof/issues",
+  "repository": "https://github.com/ethers/bitcoin-proof.git",
   "license": "MIT",
   "author": "AJoseph",
   "contributors": [
-    "Kirill Fomichev <fanatid@ya.ru>"
+    "Kirill Fomichev <fanatid@ya.ru>",
+    "dcposch"
   ],
-  "files": [
-    "index.js",
-    "LICENSE",
-    "README.md"
-  ],
-  "main": "./index.js",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ethers/bitcoin-proof.git"
-  },
   "scripts": {
-    "prepublish": "npm run lint && npm run test",
-    "test": "mocha test/index.js",
-    "lint": "semistandard"
-  },
-  "dependencies": {
+    "prepublish": "npm run test && tsc",
+    "test": "ts-mocha test/index.js"
   },
   "devDependencies": {
-    "mocha": "^2.0.1",
-    "semistandard": "^7.0.0"
+    "@types/mocha": "^9.1.1",
+    "@types/node": "^17.0.41",
+    "mocha": "^10.0.0",
+    "ts-mocha": "^10.0.0",
+    "typescript": "^4.0.0"
   },
   "engines": {
-    "node": ">=0.10"
+    "node": ">=4"
+  },
+  "eslintConfig": {
+    "parserOptions": {
+      "ecmaVersion": 8
+    },
+    "env": {
+      "browser": true,
+      "node": true
+    }
   },
   "semistandard": {
     "globals": [
